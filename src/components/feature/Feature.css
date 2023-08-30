@@ -1,0 +1,64 @@
+.featured{
+    height: 90vh;
+    position: relative;
+}
+.featured .category{
+    position: absolute;
+    top: 80px;
+    left: 50px;
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.featured .category select{
+    cursor: pointer;
+    background-color: var(--main-color);
+    border: 1px solid white;
+    margin-left: 20px;
+    padding: 5px;
+    color: white;
+}
+
+.featured img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.featured .info{
+    position: absolute;
+    width: 35%;
+    left: 50px;
+    bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.featured .info img{
+    width: 400px;
+}
+.featured .info .desc{
+    margin: 20px 0;
+}
+.featured .info .buttons{
+    display: flex;
+}
+.featured .info .buttons button{
+    padding: 10px 20px;
+    margin: 0 2px;
+    border:none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+
+}
+.featured .info .buttons .play{
+    background-color: white;
+    color: black;
+}
+.featured .info .buttons .more{
+    background-color: gray;
+    color: white;
+}
