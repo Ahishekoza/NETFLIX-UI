@@ -17,6 +17,10 @@
     align-items: center;
     height: 70px;
 }
+.navbar .container .navtitle{
+    text-decoration: none;
+    color: white;
+}
 .container img{
     height: 25px;
 }

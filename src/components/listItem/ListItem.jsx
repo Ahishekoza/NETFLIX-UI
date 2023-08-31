@@ -1,11 +1,31 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './ListItem.css'
+import axios from 'axios'
 
-const ListItem = ({index}) => {
+const ListItem = ({index,item}) => {
 
-  const trailer = "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
-
+  // ---item prop is just an ID of Movies so we need to create a function fetch a movie on the basis of ID
   const [isHover, setIsHover] = useState(false)
+  const [Movie,setMovie]= useState({})
+
+  const getMoviesById =async()=>{
+    await axios.get(`movies/find/${item}`,{
+      headers:{
+        token:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWFmOTEwNWI5MDdlYjBkMDdkN2I4ZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MzQ1OTY0OSwiZXhwIjoxNjkzODkxNjQ5fQ.3rL_sEDOgH8ZPrcIbCWtRBNLSrprzLQQjuJ-g37V3VI"
+      }
+    }).then((movie)=>{
+      setMovie(movie.data.Movie);
+    })
+  }
+
+  useEffect(() => {
+  
+    return () => {
+      getMoviesById()
+    }
+  }, [])
+  
+
   return (
     <div className='listItem'
      style={{left : isHover && index * 225 -50 + index*2.5}}
@@ -13,26 +33,26 @@ const ListItem = ({index}) => {
      onMouseLeave={()=>setIsHover(false)}
      >
       <img
-        src="https://occ-0-1723-92.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABU7D36jL6KiLG1xI8Xg_cZK-hYQj1L8yRxbQuB0rcLCnAk8AhEK5EM83QI71bRHUm0qOYxonD88gaThgDaPu7NuUfRg.jpg?r=4ee"
+        src={Movie.img}
         alt=""
       />
       {
         isHover ? <>
-        <video src={trailer} autoPlay={true} loop></video>
+        <video src={Movie.trailer} autoPlay={true} loop></video>
         <div className="itemInfo">
         <div className="icons">
 
         </div>
         <div className="itemInfoTop">
-             <span>1 hour 14 mins</span>
-            <span className="limit">+16</span>
-            <span>1999</span>
+             <span>{Movie.duration?Movie.duration:'1 hour 14 mins'}</span>
+            <span className="limit">{Movie.limit?Movie.limit:'+16'}</span>
+            <span>{Movie.year ? Movie.year : '1999'}</span>
         </div>
         <div className="desc">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, labore facilis perferendis est placeat vitae praesentium. Beatae corporis commodi praesentium ad rem distinctio, delectus minima nemo perferendis optio animi quis!
+          {Movie.desc ? Movie.desc : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, labore facilis perferendis est placeat vitae praesentium. Beatae corporis commodi praesentium ad rem distinctio, delectus minima nemo perferendis optio animi quis!'} 
         </div>
         <div className="action">
-          Action
+          {Movie.genre?Movie.genre:'Action'}
         </div>
       </div>
         </> 
