@@ -1,10 +1,29 @@
+import { useEffect, useState } from 'react'
 import './Feature.css'
+import axios from 'axios'
 const Feature = ({type}) => {
+  
+  const [content,setContent] = useState([])
+  
+ 
+
+  useEffect(()=>{
+    const getRandomContents = async()=>{
+      await axios.get(`movies/random${type ? '?type='+type : ''}`).then((response)=>{
+       setContent(response.data[0]);
+      })
+   }
+    return () => {
+      getRandomContents()
+    }
+
+  },[type])
+
   return (
     <div className='featured'>
         {type && (
             <div className='category'>
-                <span>{type === 'movies' ? 'MOVIES' : "TV SERIES"}</span>
+                <span>{type === 'movie' ? 'MOVIES' : "TV SERIES"}</span>
                 <select name="genre" id="genre">
                     <option>Genre</option>
                     <option value="adventure">Adventure</option>

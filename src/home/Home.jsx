@@ -10,18 +10,19 @@ const Home = ({type}) => {
   const [lists, setLists] = useState([])
   const [genre,setGenre] = useState("")
 
-  const getRandomLists = async() =>{
-     await axios.get(`lists${type? '?type='+type: ''}${genre? '&genre='+genre:''}`,{
-      headers:{
-        token:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWFmOTEwNWI5MDdlYjBkMDdkN2I4ZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MzQ1OTY0OSwiZXhwIjoxNjkzODkxNjQ5fQ.3rL_sEDOgH8ZPrcIbCWtRBNLSrprzLQQjuJ-g37V3VI"
-      }
-     }).then((list)=>{
-      setLists(list.data);
-     })
-  }
+  
 
   useEffect(() => {
-  
+    const getRandomLists = async() =>{
+      await axios.get(`lists${type? '?type='+type: ''}${genre? '&genre='+genre:''}`,{
+       headers:{
+         token:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZWFmOTEwNWI5MDdlYjBkMDdkN2I4ZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY5MzYyODQ1MSwiZXhwIjoxNjk0MDYwNDUxfQ.EAi0ko9EiqpZm-RWgpwlykn6D3mjmE4soDR83Xoof0s"
+       }
+      }).then((list)=>{
+       setLists(list.data);
+       console.log(list.data)
+      })
+   }
     return () => {
       getRandomLists()
     }
